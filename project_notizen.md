@@ -50,7 +50,7 @@
         ├── package.json
         └── README.md
 
-##### Aufgabe 1 -
+##### Aufgabe 1 - Meli
 
 > Benutzerverwaltung + Authentifizierung
 
@@ -92,7 +92,7 @@
 
        .rest Datei testen
 
-##### Aufgabe 2 -
+##### Aufgabe 2 - Cihan
 
 > Stellenanzeigen + Bewerbungen
 
