@@ -7,7 +7,6 @@ import userJobRoutes from "./src/routes/userJobsRoutes.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-//Meli
 import authRoutes from "./src/routes/authRoutes.js";
 
 await connectToDB();
@@ -32,3 +31,5 @@ app.get("/", (req, res) => res.send("Hallo, this is the Job API!"));
 app.listen(PORT, () => {
   console.log(`🌟 Server is running on: http://localhost:${PORT}`);
 });
+
+// Meli - Cihan
