@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <title>Job Listings with Auth</title>
     <style>
+      body {
+        margin: 4rem;
+        margin-bottom: 10rem;
+      }
       table {
         width: 100%;
         border-collapse: collapse;
@@ -25,11 +29,14 @@
       textarea {
         width: 300px;
         margin-bottom: 10px;
+        padding: 0.5rem;
       }
 
       button {
         margin-top: 10px;
         margin-right: 5px;
+        margin-bottom: 0.3rem;
+        padding: 0.3rem;
       }
 
       h2 {
@@ -131,6 +138,7 @@
     <form id="applyForm">
       <input type="text" id="jobId" placeholder="Job ID" required /><br />
       <input type="text" id="userId" placeholder="User Name" required /><br />
+
       <button type="submit">Apply</button>
     </form>
     <div id="result"></div>
