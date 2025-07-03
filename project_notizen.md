@@ -14,6 +14,8 @@ Wenn eine Fehlermeldung auftritt, prüfen Sie, ob die Portnummer irgendwo anders
 
 )
 
+git rm --cached .env
+
 ##### 2. .env
 
         PORT=5500
