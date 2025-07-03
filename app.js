@@ -5,6 +5,7 @@ import { connectToDB } from "./src/libs/db.js";
 import jobRoutes from "./src/routes/jobRoutes.js";
 import userJobRoutes from "./src/routes/userJobsRoutes.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 //Meli
 import authRoutes from "./src/routes/authRoutes.js";
