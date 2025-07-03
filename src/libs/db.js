@@ -8,7 +8,7 @@ export const connectToDB = async () => {
   }
 
   mongoose.connection.on("error", (error) => {
-    console.error("Failed to connect to MongoDB:", error);
+    console.error("❌ Failed to connect to MongoDB:", error);
   });
 
   mongoose.connection.on("connected", () => {

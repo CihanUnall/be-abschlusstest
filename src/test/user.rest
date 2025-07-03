@@ -1,0 +1,20 @@
+### Get all job postings for a user
+
+GET http://localhost:5500/api/userjobs
+Content-Type: application/json
+
+
+### filter job postings 
+GET http://localhost:5500/api/userjobs/filter
+Content-Type: application/json
+
+
+
+### Get applied jobs 
+
+POST http://localhost:5500/api/userjobs/apply/686598084cbaf4083779f7a5
+Content-Type: application/json
+
+{
+  "userId": "Meli"
+}

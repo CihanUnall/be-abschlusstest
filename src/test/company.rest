@@ -1,0 +1,42 @@
+
+
+### Add new job posting
+POST http://localhost:5500/api/jobspostings
+Content-Type: application/json
+
+{
+
+  "title": "Junier Fullstack Developer",
+  "company": "CM",
+  "description": "Next.js, Tailwind, TypeScript, Node.js",
+  "location": "Remote",
+  "salary": "€80,000 - €100,000",
+  "technologies": ["React", "Tailwind", "TypeScript", "Node.js", "Scss", "Bootstrap"],
+  "employmentType": "Full-time"
+}
+
+
+
+### Update job posting
+PUT http://localhost:5500/api/jobspostings/68659df963f2a5963d7cc4e0
+Content-Type: application/json
+
+{
+  "title": "Junier Frontend Developer react",
+  "company": "DCI",
+  "description": "Next.js , Tailwind, TypeScript, Node.js",
+  "location": "Home Office",
+   "salary": "€70,000 - €90,000",
+  "technologies": ["Next.js", "Tailwind", "TypeScript", "Node.js"],
+  "employmentType": "Full-time - Minijob"
+}
+
+
+
+### Delete a job posting
+DELETE http://localhost:5500/api/jobspostings/1
+
+
+### get all job postings
+GET http://localhost:5500/api/jobspostings
+
