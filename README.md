@@ -71,11 +71,3 @@ Hinweis: Wir sehen die Cookies und dadurch auch das JWT nicht! Aber VS- Code spe
 1. loadAll - Zeige alle offenen Stellenanzeigen an
 2. loadFiltered - Zeige alle offenen Stellenanzeigen an, die 'react' im Titel haben
 3. apply - Fügt die UserID zur Stellenanzeige hinzu
-
-# be-abschlusstest
-
-# be-abschlusstest
-
-# be-abschlusstest
-
-# be-abschlusstest
