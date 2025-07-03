@@ -1,3 +1,19 @@
+### Dci_fbw_wd24_d07 BE Abschlusstest
+
+#### Teammitglieder
+
+- [Cihan Ünal](https://github.com/CihanUnall)
+
+- [Meli Kebriaei](https://github.com/MelissaKebi)
+
+####
+
+- [BE Abschlusstest - Github](https://github.com/CihanUnall/be-abschlusstest)
+
+####
+
+- [Aufgabendatei - Github](https://github.com/dci-fbw-wd-24-d07-a/be-abschlusstest)
+
 # 📚 Backend Abschlusstest – Mini-JobBoard
 
 ## 🎯 Ziel
@@ -55,7 +71,11 @@ Hinweis: Wir sehen die Cookies und dadurch auch das JWT nicht! Aber VS- Code spe
 1. loadAll - Zeige alle offenen Stellenanzeigen an
 2. loadFiltered - Zeige alle offenen Stellenanzeigen an, die 'react' im Titel haben
 3. apply - Fügt die UserID zur Stellenanzeige hinzu
+
 # be-abschlusstest
+
 # be-abschlusstest
+
 # be-abschlusstest
+
 # be-abschlusstest

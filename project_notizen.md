@@ -1,11 +1,18 @@
-        https://github.com/dci-fbw-wd-24-d07-a/be-abschlusstest
-
 ##### 1. package.json und İnstallation
 
         npm init -y
         npm i
         npm i express dotenv cors cookie-parser express-validator jsonwebtoken bcrypt mongoose
         npm install --save-dev nodemon
+        npm run dev
+
+(
+Wenn eine Fehlermeldung auftritt, prüfen Sie, ob die Portnummer irgendwo anders im Hintergrund ausgeführt wird, und schließen Sie sie.
+
+        sudo lsof -i :5500
+        sudo kill -9 420652
+
+)
 
 ##### 2. .env
 
@@ -19,33 +26,33 @@
         │
         ├── src/
         │   ├── controllers/
-        │   │   ├── authController.js
-        │   │   └── jobController.js
+        │   │   ├── jobController.js
+        │   │   └── userJobController.js
         │   │
         │   ├── models/
-        │   │   ├── User.js
         │   │   └── Job.js
         │   │
         │   ├── routes/
-        │   │   ├── authRoutes.js
+        │   │   ├── userJobRoutes.js
         │   │   └── jobRoutes.js
         │   │
         │   ├── middleware/
-        │   │   ├── authMiddleware.js
         │   │   └── validationMiddleware.js
         │   │
         │   ├── utils/
         │   │   └── validators.js
         │   │
-        │   ├── config/
+        │   ├── libs/
         │   │   └── db.js
         │   │
         │   └── app.js
         │
         ├── tests/
-        │   └── .rest
+        │   └── company.rest
+        │   └── user.rest
         │
         ├── .env
+        ├── index.html
         ├── app.js
         ├── package.json
         └── README.md
@@ -114,16 +121,6 @@
 
         apply: Sich auf eine Anzeige bewerben (UserID wird gespeichert)
 
-     3. Modell: Job
-
-        Felder: title, description, companyId, appliedUsers, createdAt, techStack usw.
-
-     4. Beziehungen
-
-        appliedUsers enthält ObjectId-Referenzen auf User
-
-        populate('appliedUsers', 'fullname email') um User-Daten anzuzeigen
-
-     4. Tests
+     3. Tests
 
         .rest Datei erstellen
