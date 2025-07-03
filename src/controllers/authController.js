@@ -2,22 +2,22 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-// JWT oluşturma fonksiyonu (12 saat geçerli)
+//  JWT creation function (valid for 12 hours)
 const createToken = (user) => {
   return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-    expiresIn: "12h", // 12 saat olarak ayarlandı
+    expiresIn: "12h",
   });
 };
 
-// Şifre için regex (min 10 karakter, 1 büyük, 1 küçük, 1 özel karakter)
+// Regex for password (min 10 characters, 1 uppercase, 1 lowercase, 1 special character)
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{10,}$/;
 
-// Kayıt (signup)
+// (signup)
 export const signup = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
-    // Basit validationlar
+    //  Simple validations
     if (!name || name.length < 3 || name.length > 20) {
       return res.status(400).json({
         message: "Name must be between 3 and 20 characters.",
@@ -37,13 +37,13 @@ export const signup = async (req, res) => {
       });
     }
 
-    // Email zaten kullanımda mı kontrolü
+    //Check if email is already in use
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email is already in use." });
     }
 
-    // Yeni kullanıcı oluşturma
+    // Creating a new user
     const newUser = await User.create({
       name,
       email,
@@ -51,18 +51,18 @@ export const signup = async (req, res) => {
       role: role || "applicant", // default applicant
     });
 
-    // Token oluştur
+    //  Create token
     const token = createToken(newUser);
 
-    // Cookie ayarları - prod ortamda secure true yapılmalı
+    // Cookie settings - secure should be set to true in the prod environment
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 12 * 60 * 60 * 1000, // 12 saat
+      maxAge: 12 * 60 * 60 * 1000, //12h
     });
 
-    // Başarılı kayıt cevabı
+    // Successful registration response
     res.status(201).json({
       message: "User successfully registered!",
       user: {
@@ -78,27 +78,27 @@ export const signup = async (req, res) => {
   }
 };
 
-// Giriş (login)
+// (login)
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Kullanıcıyı bul
+    // Find the user
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Incorrect email or password." });
     }
 
-    // Şifre kontrolü
+    // Password check
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Incorrect email or password." });
     }
 
-    // Token oluştur
+    // Create token
     const token = createToken(user);
 
-    // Cookie ayarları
+    // Cookie settings
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -106,7 +106,7 @@ export const login = async (req, res) => {
       maxAge: 12 * 60 * 60 * 1000, // 12 saat
     });
 
-    // Başarılı giriş cevabı
+    // Successful login response
     res.status(200).json({
       message: "Login Successful!",
       user: {
@@ -122,11 +122,11 @@ export const login = async (req, res) => {
   }
 };
 
-// Çıkış (logout)
+// (logout)
 export const logout = (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
-    expires: new Date(0), // Çerez hemen silinir
+    expires: new Date(0),
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
   });
