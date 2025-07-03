@@ -1,1 +1,4 @@
+# .env ordner 
 .env
+.env.local
+.env.*.local
