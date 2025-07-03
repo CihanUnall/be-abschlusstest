@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Job Listings</title>
+    <title>Job Listings with Auth</title>
     <style>
       table {
         width: 100%;
@@ -35,9 +35,61 @@
       h2 {
         margin-top: 40px;
       }
+
+      #logoutSection {
+        margin-top: 20px;
+        margin-bottom: 40px;
+      }
     </style>
   </head>
   <body>
+    <h2>Register</h2>
+    <form id="registerForm">
+      <input type="text" id="registerName" placeholder="Name" required /><br />
+      <input
+        type="email"
+        id="registerEmail"
+        placeholder="Email"
+        required
+      /><br />
+      <input
+        type="password"
+        id="registerPassword"
+        placeholder="Password"
+        required
+      /><br />
+      <select id="registerRole" required>
+        <option value="" disabled selected>Select Role</option>
+        <option value="applicant">Applicant</option>
+        <option value="company">Company</option>
+      </select>
+      <br />
+      <button type="submit">Register</button>
+    </form>
+    <div id="registerResult"></div>
+
+    <hr />
+
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="email" id="loginEmail" placeholder="Email" required /><br />
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Password"
+        required
+      /><br />
+      <button type="submit">Login</button>
+    </form>
+    <div id="loginResult"></div>
+
+    <div id="logoutSection" style="display: none">
+      <button id="logoutBtn">Logout</button>
+      <div id="logoutResult"></div>
+    </div>
+
+    <hr />
+
     <h2>Add / Edit Job</h2>
     <form id="newJobForm">
       <input type="text" id="newTitle" placeholder="Title" required /><br />
@@ -100,6 +152,110 @@
     </table>
 
     <script>
+      // --- Auth state management ---
+      let loggedInUser = null;
+
+      function setLoggedInUser(user) {
+        loggedInUser = user;
+        const logoutSection = document.getElementById("logoutSection");
+        const loginForm = document.getElementById("loginForm");
+        const registerForm = document.getElementById("registerForm");
+
+        if (user) {
+          logoutSection.style.display = "block";
+          loginForm.style.display = "none";
+          registerForm.style.display = "none";
+        } else {
+          logoutSection.style.display = "none";
+          loginForm.style.display = "block";
+          registerForm.style.display = "block";
+        }
+      }
+
+      // Register
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const name = document.getElementById("registerName").value;
+          const email = document.getElementById("registerEmail").value;
+          const password = document.getElementById("registerPassword").value;
+          const role = document.getElementById("registerRole").value;
+
+          const res = await fetch("http://localhost:5500/api/auth/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ name, email, password, role }),
+          });
+
+          const data = await res.json();
+          const registerResult = document.getElementById("registerResult");
+
+          if (res.ok) {
+            registerResult.textContent =
+              "Registration successful! Please login.";
+            document.getElementById("registerForm").reset();
+          } else {
+            registerResult.textContent =
+              "Error: " + (data.message || "Unknown error");
+          }
+        });
+
+      // Login
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = document.getElementById("loginEmail").value;
+          const password = document.getElementById("loginPassword").value;
+
+          const res = await fetch("http://localhost:5500/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+            credentials: "include",
+          });
+
+          const data = await res.json();
+          const loginResult = document.getElementById("loginResult");
+
+          if (res.ok) {
+            loginResult.textContent =
+              "Login successful! Welcome " + (data.name || "");
+            setLoggedInUser(data);
+          } else {
+            loginResult.textContent =
+              "Error: " + (data.error || "Invalid credentials");
+          }
+        });
+
+      // Logout
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", async () => {
+          const res = await fetch("http://localhost:5500/api/auth/logout", {
+            method: "POST",
+            credentials: "include",
+          });
+
+          const logoutResult = document.getElementById("logoutResult");
+
+          if (res.ok) {
+            logoutResult.textContent = "Logged out successfully.";
+            setLoggedInUser(null);
+            document.getElementById("loginResult").textContent = "";
+            document.getElementById("registerResult").textContent = "";
+          } else {
+            const data = await res.json();
+            logoutResult.textContent =
+              "Error logging out: " + (data.error || "");
+          }
+        });
+
+      // --- Jobs functionality (same as before) ---
       async function loadJobs() {
         const res = await fetch("http://localhost:5500/api/jobspostings");
         const jobs = await res.json();
@@ -269,7 +425,10 @@
         }
       }
 
-      window.onload = loadJobs;
+      window.onload = () => {
+        loadJobs();
+        setLoggedInUser(null);
+      };
     </script>
   </body>
 </html>
