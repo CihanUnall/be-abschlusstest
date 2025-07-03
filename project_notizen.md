@@ -30,13 +30,16 @@ db.users.dropIndex("username_1")
         │
         ├── src/
         │   ├── controllers/
+        |   |   |── authController.js
         │   │   ├── jobController.js
         │   │   └── userJobController.js
         │   │
         │   ├── models/
         │   │   └── Job.js
+        │   │   └── User.js
         │   │
         │   ├── routes/
+        │   │   ├── authRoutes.js
         │   │   ├── userJobRoutes.js
         │   │   └── jobRoutes.js
         │   │
@@ -53,8 +56,8 @@ db.users.dropIndex("username_1")
         │
         ├── tests/
         │   └── company.rest
+        │   └── login.rest
         │   └── user.rest
-        │
         ├── .env
         ├── index.html
         ├── app.js
